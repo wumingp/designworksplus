@@ -37,8 +37,10 @@ export default {
           // GetResources(this.$store.state.tagType).then((res)=>{
           //     this.$emit('GetArticle',res.data.extend.articleList);
           // })
-
       }
+  },
+  props:{
+
   }
 }
 </script>

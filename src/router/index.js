@@ -10,10 +10,12 @@ const login = () =>import("@/views/loginPage");
 const personMsg = () =>import("@/views/personMsgPage");
 const essay = () =>import("@/views/essayPage");
 const NotFoundPage = () =>import("@/views/NotFound")
+const EditPage = () => import("@/views/editPage")
+const editPart = () => import("@/views/editPart")
 const routes = [
   {
-    path:'/',
-    redirect:'personMsgPage'
+    path:'/EditPage',
+    redirect:'EditPage'
   },
   {
     path: '/homePage',
@@ -39,7 +41,16 @@ const routes = [
     path: '/:path(.*)',
     component: NotFoundPage
   },
-]
+  {
+    path: '/',
+    name: "editPage",
+    component: EditPage,
+  },
+  {
+    path: '/editPart',
+    component: editPart
+  }
+  ]
 
 const router = createRouter({
   history: createWebHashHistory(),

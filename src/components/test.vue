@@ -1,6 +1,6 @@
 <template>
   <el-button type="primary" @click="tclick"> primary </el-button>
-
+  <img :src="this.imgSrc">
 </template>
 
 <script>
@@ -9,15 +9,16 @@ export default {
   data(){
     return({
       db:["我是1","我是2","我是3"],
-
+      imgSrc:""
     })
   },
   methods:{
     tclick(){
       // 点击按钮进行一些操作，然后保存数据
-      this.$store.commit('saveCurrDbSource',this.db);
-      // this.$store.commit('saveCurrDbSource',this.ab);
-      // this.$store.commit('saveCurrDbSource',this.av);
+      // this.$store.commit('saveCurrDbSource',this.db);
+      // // this.$store.commit('saveCurrDbSource',this.ab);
+      // // this.$store.commit('saveCurrDbSource',this.av);
+
     }
   }
 }

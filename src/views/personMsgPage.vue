@@ -3,6 +3,12 @@
     <app-title-box id="titleBox"></app-title-box>
     <header-box ></header-box>
     <person-login id="loginmsg"></person-login>
+    <div class="head-navigation-box">
+      <div><a style="color: white; text-decoration:none" href="http://localhost:8080/#/homePage">首页</a></div>
+      <div>热门榜单</div>
+      <div>等你分享</div>
+      <div>最新推荐</div>
+    </div>
   </el-header>
 
   <div style="height: 10px"></div>
@@ -66,6 +72,22 @@ export default {
 html{
   background-color: rgb(246,246,246);
 }
+.head-navigation-box{
+  width: 400px;
+  height: 50px;
+  display: flex;
+  position: absolute;
+  left: 200px;
+  top: 40px;
+}
+.head-navigation-box div{
+  color: white;
+  flex: 1;
+  justify-content: center;
+  line-height: 50px;
+  text-align: center;
+  /*border: 1px solid black;*/
+}
 .creat-box {
   position: absolute;
   width: 290px;
@@ -89,7 +111,7 @@ html{
   width: 100%;
   height: 100px;
   z-index: 10000;
-  background-color: rgb(255,255,255);
+  background-color: rgb(80,44,108);
 }
 .upbox{
   margin-left: 250px;

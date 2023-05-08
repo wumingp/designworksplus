@@ -21,7 +21,7 @@
 
     <div class="list">
       <div class="listitem" v-for="itme in trendsPageList" :key="itme.id">
-            <h2 style="font-size: 25px;margin-top: 20px">{{itme.title}}}</h2>
+            <h2 style="font-size: 25px;margin-top: 20px">{{itme.title}}</h2>
             <div><el-avatar
                 src=".//public/img/QQ图片20230226174858.jpg"
                 class="headimg"/>
@@ -57,7 +57,6 @@ export default {
     }
   },
   mounted() {
-
   },
   methods:{
     getLikeList(){
@@ -107,7 +106,6 @@ export default {
     margin-left: -5px;
     margin-top: 15px;
   }
-
   #operateBox div{
     flex: 1;
     height: 50px;

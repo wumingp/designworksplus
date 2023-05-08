@@ -24,14 +24,28 @@ export const GetBackgroundImg = (params) =>{
         data:params
     })
 }
-//请求获取首页资源
-export const GetResources = (params)=>{
+//请求获取首页资源通过小类别
+export const getAllArticlesBySubcategory = (params)=>{
     return server({
-        url:"/NCHURead/GetResources",
-        method:"post",
-        data:params
+        url:"/article/getAllArticlesBySubcategory",
+        method:"get",
+        params:{
+            large_clazz:params
+        }
     })
 }
+
+//请求获取首页资源通过大类别
+export const getAllArticlesByLager_clazz = (params)=>{
+    return server({
+        url:"/article/LargeClazz",
+        method:"get",
+        params:{
+            large_clazz:params
+        }
+    })
+}
+
 //请求获取个人信息资源
 export const GetPersonMsgResources = (params)=>{
     return server({
@@ -40,5 +54,12 @@ export const GetPersonMsgResources = (params)=>{
         data:params
     })
 }
-//请求获取huo
+//上传文章
+export const PUTPersonMsgResources = (params)=>{
+    return server({
+        url:"/article/submitArticle",
+        method:"post",
+        data:params
+    })
+}
 

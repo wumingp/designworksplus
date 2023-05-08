@@ -38,9 +38,6 @@
           <el-button class="loginBtn" type="summit" @click="login()">注册</el-button>
         </form>
     </div>
-
-
-
   </div>
 
 </template>

@@ -3,11 +3,10 @@ import axios from 'axios'
 //创建一个axios
 let server = axios.create({
     // 请求公共地址
-    baseURL: " http://localhost:8888//",
+    baseURL: '/api',
     // 超时时间
     timeout: 5000,
 })
-
 // 添加请求拦截器
 axios.interceptors.request.use((config)=>{
     // 在发送请求之前做些什么

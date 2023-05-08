@@ -5,7 +5,7 @@
       <header-box></header-box>
       <person-login id="loginmsg"></person-login>
       <div class="head-navigation-box">
-        <div>首页</div>
+        <div><a style="color: white; text-decoration:none" href="http://localhost:8080/#/homePage">首页</a></div>
         <div>热门榜单</div>
         <div>等你分享</div>
         <div>最新推荐</div>
@@ -49,7 +49,7 @@ import AppTitleBox from "@/components/AppTitleBox";
 import PersonLogin from "@/components/personLogin";
 import RecommendationBookCard from "@/components/RecommendationBookCard";
 import BookCardList from "@/components/bookCardList";
-
+import {getAllArticlesByLager_clazz} from '@/api/api'
 export default {
   name: "homePage",
   data(){
@@ -92,12 +92,13 @@ export default {
   // beforeDestroy() {
   //   $(window).removeEventListener('scroll', this.handleScroll)
   // },
-  // created() {
-  //   GetResources(ListType).then(res=>{
-  //      this.ArticleList = res.data.extend.articleList;
-  //      this.RecommendArticleList = res.data.extend.recommendArticleList;
-  //   })
-  // }
+  created() {
+    getAllArticlesByLager_clazz('小说').then(res=>{
+       this.ArticleList = res;
+       this.RecommendArticleList = res;
+        console.log(res);
+    })
+  }
 }
 
 </script>
