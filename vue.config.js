@@ -9,18 +9,23 @@ module.exports = defineConfig({
         jQuery: "jquery",
         "windows.jQuery": "jquery",
       })
-    ]
+    ],
+    // rules:[
+    //     {
+    //         test: /\.less$/,
+    //         loader: "style-loader!css-loader!less-loader",
+    //     },
+    // ]
   },
     devServer:{
         proxy:{
             '/api':{
-                target:'http://127.0.0.1:8888',
+                target:'http://localhost:80',
                 changeOrigin:true,
                 pathRewrite:{
                     '^/api':''
                 }
             }
         }
-
     }
 })

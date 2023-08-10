@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>球体</title>
+    <style>
+      body {
+        padding: 0;
+        margin: 0;
+      }
+      .box {
+        position: absolute;
+        margin: -225px 0 0 -225px;
+        left: 50%;
+        top: 45%;
+        background: url('../assets/img/earth.png') repeat-x 0 0; /* 背景图片在水平方向复制*/
+        /*下面的属性可使地球位于浏览器窗口垂直水平居中国*/
+        height: 450px;
+        width: 450px;
+
+        border: 1px solid rgba(26, 18, 101, 0.3);
+        border-radius: 225px; /*使地球形成圆形效果*/
+        /* inset表示内层阴影 */
+        box-shadow: -8px 0 25px rgba(256, 256, 256, 0.3),
+          -1px -2px 14px rgba(256, 256, 256, 0.5) inset;
+        /*形成圆形外面的模糊月晕效果*/
+        animation: loop 20s linear infinite;
+      }
+      /* 通过伪元素给地球添加阴影 */
+      .box:before {
+        content: '';
+        border-radius: 225px;
+        box-shadow: -150px -6px 25px rgba(0, 0, 0, 0.7) inset; /*弧形阴影，形成白天黑夜效果*/
+        position: absolute;
+        left: 0;
+        top: 0;
+        height: 450px;
+        width: 450px;
+      }
+      /* 动画效果 */
+      @keyframes loop {
+        0% {
+          background-position: 0 0;
+        }
+        100% {
+          background-position: 900px 0;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="box"></div>
+  </body>
+</html>
