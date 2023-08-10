@@ -1,0 +1,30 @@
+@width: 1000px;
+@height: @width + 10px;
+.bordered {
+  border: solid 2px black;
+}
+#header {
+  width: @width;
+  height: @height;
+  .bordered();
+}
+.component {
+  width: 300px;
+  height: 200px;
+  border: black 1px solid;
+}
+@media (min-width: 768px) {
+  .component {
+    width: 600px;
+  }
+}
+@media (min-width: 768px) and (min-resolution: 192dpi) {
+  .component {
+    background-color:black;
+  }
+}
+@media (min-width: 1280px) {
+  .component {
+    width: 800px;
+  }
+}

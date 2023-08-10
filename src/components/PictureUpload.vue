@@ -10,7 +10,7 @@
       <img class="imgs" :src="imgSrc">
     </div>
 
-    <div class="username"><span id="username">{{personMsg.name}}</span></div>
+    <div class="username"><span id="username">{{this.personMsg.userName}}</span></div>
     <div class="male-icon"><el-icon size="21"><Male /></el-icon></div>
     <el-button class="msgbtn" type="primary">编辑个人资料</el-button>
     <el-button class="is-background-btn" @click="showbackgroundimg">
@@ -30,15 +30,15 @@ export default {
   name: "PictureUpload",
   data(){
     return{
-      imgSrc:drag1,
-      backgroundImgSrc:"",
+      imgSrc:`${this.$store.state.path}/${this.$store.state.userInfo.userHeadImg}`,
+      backgroundImgSrc:`${this.$store.state.path}/${this.$store.state.userInfo.userBackgroundImg}`,
       personMsg:{}
     }
   },
   mounted() {
     // this.personMsg = this.$store.state("userInfo");
     this.personMsg = {
-      name:"晨曦"
+      userName:this.$store.state.userInfo.userName  ,
     }
 
   },
@@ -54,7 +54,9 @@ export default {
         this.imgSrc = e.target.result;
       }
        reader.readAsDataURL(fileList[0]);
-        upload(fileList[0]).then((res)=>{
+        const fd = new FormData();
+        fd.append('file',fileList[0])
+        upload(fd,this.$store.state.token).then((res)=>{
         console.log(res);
         alert("上传成功")
       }).catch((res)=>{
@@ -100,10 +102,11 @@ export default {
       })
 
     },
+
+
     async sendBigFile() {
       const file = document.getElementById('uploadbox').files[0];
       // console.log(file);
-
       const chunks = createChunks(file, 512 * 1024);
       //console.log(chunks);
       var spark = new SparkMD5();
@@ -125,7 +128,6 @@ export default {
             }
             reader.readAsArrayBuffer(blob);
           }
-
           _read(0);
         })
       }

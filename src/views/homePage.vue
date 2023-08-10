@@ -50,6 +50,7 @@ import PersonLogin from "@/components/personLogin";
 import RecommendationBookCard from "@/components/RecommendationBookCard";
 import BookCardList from "@/components/bookCardList";
 import {getAllArticlesByLager_clazz} from '@/api/api'
+import {getArticleList}  from '@/api/api';
 export default {
   name: "homePage",
   data(){
@@ -67,6 +68,7 @@ export default {
   methods:{
     GetArticles(articleList){
        this.ArticleList = articleList;
+       console.log(this.ArticleList);
     },
     TagGetArticleList(tagArticleList){
       this.ArticleList = tagArticleList;
@@ -78,12 +80,12 @@ export default {
     this.$nextTick(()=>{
       $(document).ready(function() {
         $ (window).scroll(function() {
+          //判断滚动条是否到顶部
           if ($(document ).scrollTop()<=0){
           }
+          //判断滚动条是否到底部
           if (Math.ceil($(document).scrollTop()) >= $( document).height()-$(window).height()) {
             that.nums = that.nums + 8;
-            console.log($(document).scrollTop())
-            console.log($( document).height()-$(window).height())
           }
         });
       });
@@ -93,11 +95,9 @@ export default {
   //   $(window).removeEventListener('scroll', this.handleScroll)
   // },
   created() {
-    getAllArticlesByLager_clazz('小说').then(res=>{
-       this.ArticleList = res;
-       this.RecommendArticleList = res;
-        console.log(res);
-    })
+    // getArticleList().then(res=>{
+    //   this.ArticleList = res.data.data
+    // })
   }
 }
 

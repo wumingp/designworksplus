@@ -21,20 +21,20 @@
               show-password
               id="passwordBox"
           /><br><br>
-          <el-button class="loginBtn" type="summit" @click="login()">登录</el-button>
+          <el-button class="loginBtn" type="summit" @click="login">登录</el-button>
         </form>
 <!--        注册表单-->
         <form id="loginform">
-          <el-input v-model="account" placeholder="Please input account" id="accountBox"/><br><br>
+          <el-input v-model="this.register.account" placeholder="Please input account" id="accountBox"/><br><br>
           <el-input
-              v-model="password"
+              v-model="this.register.password"
               type="password"
               placeholder="Please input password"
               show-password
               id="passwordBox"
           /><br><br>
-          <el-input v-model="account" placeholder="Please input e-mile" id="accountBox"/><br><br>
-          <el-input v-model="account" placeholder="Please enter the verification code" id="accountBox"/><br><br>
+          <el-input v-model="this.register.mail" placeholder="Please input e-mile" id="accountBox"/><br><br>
+          <el-input v-model="this.register.password" placeholder="Please enter the verification code" id="accountBox"/><br><br>
           <el-button class="loginBtn" type="summit" @click="login()">注册</el-button>
         </form>
     </div>
@@ -44,6 +44,8 @@
 
 <script>
 import {login} from '@/api/api'  //引入页面
+import {registered} from "@/api/api";
+
 export default {
   name: "loginPage",
   data(){
@@ -52,32 +54,51 @@ export default {
         account: "",
         password: "",
       },
+      register:{
+        account: "",
+        password: "",
+        mail:""
+      },
     })
   },
   methods:{
-      //调用接口
+    //调用接口
     login() {
       let user;	//定义变量，记录用户
+      console.log("sdadas")
       if (this.loginForm.account === "" || this.loginForm.password === "") {
         Toast("请输入用户名或密码");
       } else {
         login(this.loginForm).then((res) => {
-          if (res.data.code === 100) {	//后端给的成功的响应状态码为200
-            user = res.data.extend.user;
+          if (res.data.code === 200) {	//后端给的成功的响应状态码为200
+            alert("登录成功")
+            console.log(res.data.data)
+            user = res.data.data.user;
             this.$store.dispatch("recordUser",user);
             localStorage.setItem("userInfo",user);
-            localStorage.setItem("token", res.data.token);
+            localStorage.setItem("token", res.data.data.token);
             // 将后端传给的token保存下来，然后保存到Vuex中
-            this.$store.dispatch("setToken", res.data.token);
+            this.$store.dispatch("setToken", res.data.data.token);
             // 请求成功后跳转到指定路由界面
             this.$router.replace("/homePage");
           } else {
             this.loading = false;
           }
+          console.log(res.data)
         });
       }
     },
+    registered(){
+      if (this.register.account === "" || this.register.password === "") {
+        Toast("请输入用户名或密码");
+      } else {
+        login(this.register).then((res) => {
+          if (res.data.code === 100) {	//后端给的成功的响应状态码为200
 
+          }
+        });
+      }
+    },
     login1(){
       let data = {
         account:this.account,
@@ -101,9 +122,7 @@ export default {
       $("#signform").css('display','inline')
       $("#loginform").css('display','none')
     }
-
   }
-
 }
 </script>
 

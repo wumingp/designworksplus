@@ -12,10 +12,21 @@ const essay = () =>import("@/views/essayPage");
 const NotFoundPage = () =>import("@/views/NotFound")
 const EditPage = () => import("@/views/editPage")
 const editPart = () => import("@/views/editPart")
+const test = () => import("@/views/test")
+const Earth = () => import("@/views/Earth")
+const SnakeGame = () => import("@/views/Earth")
+const StarBackground = () => import("@/views/StarBackground");
+import pdfShow from '@/views/pdfShow'
+import FileUpdate from '@/views/FileUpdate.vue'
 const routes = [
   {
-    path:'/EditPage',
-    redirect:'EditPage'
+    path:'/loginPage',
+    redirect:'loginPage'
+  },
+  {
+    path: '/editPage',
+    name: 'editPage',
+    component: EditPage
   },
   {
     path: '/homePage',
@@ -43,14 +54,48 @@ const routes = [
   },
   {
     path: '/',
-    name: "editPage",
-    component: EditPage,
+    name: "loginPage",
+    component: login,
   },
   {
     path: '/editPart',
     component: editPart
+  },
+  {
+    path: '/test',
+    component: test
+  },
+  {
+    path: '/Earth',
+    name: "Earth",
+    component: Earth,
+  },
+  {
+    path: '/SnakeGame',
+    name: "SnakeGame",
+    component: SnakeGame,
+  },
+  {
+    path: '/StarBackground',
+    name: "StarBackground",
+    component: StarBackground,
+  },
+  {
+    path: '/test',
+    name: 'test',
+    component:test
+  },
+  {
+    path: '/pdfShow',
+    name: 'pdfShow',
+    component:pdfShow
+  },
+  {
+    path: '/FileUpdate',
+    name: 'FileUpdate',
+    component:FileUpdate
   }
-  ]
+]
 
 const router = createRouter({
   history: createWebHashHistory(),

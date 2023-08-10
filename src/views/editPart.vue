@@ -3,10 +3,16 @@
    <div></div>
    <div style="width: 300px;height: 50px;margin-left: 20px;margin-top: 30px">
      <span style="float: left">图片编辑</span>
-     <input type="file" style="width: 150px;position: relative; margin-left: -50px;z-index: 99;border: black 1px solid;opacity: 0" >
+     <input @change="SubmitArticleImg(this)" type="file" id="files"
+            multiple="multiple" style="width: 150px;position: relative; margin-left: -50px;z-index: 99;border: black 1px solid;opacity: 0" >
      <span style="float: left;margin-left: 10px;font-size: 13px;margin-top: 3px;color: rgb(64,158,255)"><el-icon><Plus /></el-icon>上传图片</span>
    </div>
-  <img style="width: 130px;height: 60px;margin-left: 20px"><br>
+<!--  图片展示-->
+  <div style="height: 60px;margin-left: 0px" id="imgBox">
+<!--    <img :src="this.imgSrc" style="width: 130px;height: 60px;margin-left: 20px"><br>-->
+  </div>
+
+<!--  文章内容-->
   <el-input class="InputTitle" v-model="InputTitle" placeholder="请输入标题"  />
   <el-input class="InputBriefIntroduction" v-model="InputBriefIntroduction" placeholder="请输入简介" />
   <el-input class="textarea" v-model="textarea" :rows="5" type="textarea" placeholder="请输入文章正文"/>
@@ -35,12 +41,14 @@
   </select><br><br>
 <!--  <span>权限设置</span><br>-->
 <!--  <span>发布时间</span><br>-->
-  <el-button style="background-color: rgb(80,44,108);color: white;width: 100px;margin-left: 20px">发布</el-button>
+  <el-button @click="this.SubmitArticle()" style="background-color: rgb(80,44,108);color: white;width: 100px;margin-left: 20px">发布</el-button>
   <el-button style="color: black;width: 100px">取消</el-button>
 </template>
 
 <script>
-import {PUTPersonMsgResources} from '@/api/api'
+import {putEssay} from '@/api/api'
+import {putEssayImg} from "@/api/api";
+
 export default {
   name: "editPart",
   data(){
@@ -53,6 +61,7 @@ export default {
       NovelCategoriesList:["玄幻","科幻","悬疑","青春校园","武侠","都市"],
       HistoryClass:["秦汉三国","两晋隋唐","两宋元明","清历民国","外国历史","架空历史"],
       ScientificCategories:["科普","互联网","编程","算法","通信"],
+      imgSrc:""
     }
   },
   mounted() {
@@ -79,30 +88,73 @@ export default {
         this.SmallCategoriesList = this.ScientificCategories;
       }
     },
-    SubmitArticle(){
-        const article = {
-          uid:1,
-          title:"",
-          article_context:"",
-          img_list_id:6,
-          liked_quantity:0,
-          collection_volume:0,
-          large_clazz:"",
-          subcategory:"",
-          article_introduction:"",
+    SubmitArticleImg(){
+      const imgBox = document.getElementById('imgBox');
+      const fileList = document.getElementById('files').files;
+      for (let i = 0; i < fileList.length; i++){
+        let img = document.createElement('img');
+        img.className = 'imgs';
+        img.style.width = '130px';
+        img.style.height = '60px';
+        img.style.marginLeft = '20px';
+        const reader = new FileReader();
+        reader.onload = (e)=>{
+          img.src = e.target.result;
         }
-      article["title"] = $(".InputTitle").innerText;
-      article["article_introduction"] = $('.InputBriefIntroduction').innerText;
-      article["article_context"] = $('.textarea').innerText;
-      article["large_clazz"] = $('#categories option:selected').text();
-      article["subcategory"] = $('#litlecategories option:selected').text();
-      PUTPersonMsgResources(article).then((res)=>{
+        reader.readAsDataURL(fileList[i]);
+        imgBox.append(img)
+      }
+
+    },
+    upHeadImg(){
+      const fileList = document.getElementById('files').files;
+      var fd = new FormData();
+      fd.append('files',fileList);
+      putEssayImg(fd).then((res)=> {
+        console.log(res)
+        return res.data;
+      })
+      return null;
+    },
+    SubmitArticle(){
+      const fileList = document.getElementById('files').files;
+      var fd = new FormData();
+      console.log(fileList)
+      for (let i = 0 ; i < fileList.length; i++){
+        fd.append('files',fileList[i]);
+      }
+      putEssayImg(fd).then((res)=> {
+        console.log(res)
+        const listURL =JSON.stringify(res.data.data);
+        console.log(listURL)
+        const article = {
+          uid:0,
+          title:"",
+          articleContext:"",
+          imgListId:listURL,
+          likedQuantity:0,
+          collectionVolume:0,
+          largeClazz:"",
+          subcategory:"",
+          articleIntroduction:"",
+        }
+
+        article["title"] = this.InputTitle;
+        article["articleIntroduction"] = this.InputBriefIntroduction;
+        article["articleContext"] = this.textarea;
+        article["largeClazz"] = $('#categories option:selected').text();
+        article["subcategory"] = $('#litlecategories option:selected').text();
+        console.log(article);
+        putEssay(article,this.$store.state.token).then((res)=>{
           alert("上传成功");
-      }).catch(reason => {
+          console.log(res);
+        }).catch(reason => {
           alert("上传失败");
+        })
       })
     }
-  }
+}
+
 }
 </script>
 
@@ -124,5 +176,4 @@ export default {
   margin-left: 20px;
   width: 1000px;
 }
-
 </style>

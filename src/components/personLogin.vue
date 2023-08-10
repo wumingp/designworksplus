@@ -4,9 +4,9 @@
       <span><el-icon size="30"><Refrigerator /></el-icon></span>
       <span><el-icon size="30"><Stopwatch /></el-icon></span>
       <div style="display:inline-block;">
-        <a href="http://localhost:8080/#/login">
+        <a href="http://localhost:8080/#/personMsgPage">
           <el-avatar
-              src=".//public/img/QQ图片20230226174858.jpg"
+              :src="imgSrc"
               class="imgs"
           />
         </a>
@@ -16,7 +16,14 @@
 
 <script>
 export default {
-  name: "personLogin"
+  name: "personLogin",
+  data(){
+    return{
+      imgSrc:this.$store.state.path+"/"+this.$store.state.userInfo.userHeadImg
+    }
+  },
+  mounted() {
+  }
 }
 </script>
 

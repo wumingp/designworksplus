@@ -7,8 +7,9 @@ export default createStore({
     currDbSource: {},
     currJobData: {},
     DbSource: [],
-    userInfo:{},
+    userInfo:localStorage.getItem('user'),
     token:localStorage.getItem('token'),
+    path:"http://192.168.137.1:8888"
   },
   getters: {
   },

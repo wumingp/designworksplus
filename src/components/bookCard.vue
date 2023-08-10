@@ -2,43 +2,45 @@
   <div class="infinite-list-container" ref="container">
       <div class="HotTitle"><h2 style="color: black">热门推荐</h2></div>
         <el-row :gutter="24" class="infinite-list-phantom">
-          <el-col
-              v-for="(o, index) in this.nums"
-              :key="o"
-              :span="6"
-              class="infinite-list"
-          >
-            <el-card  :body-style="{ padding: '0px'}" @click="JumpToarticle" >
-              <img
-                  data-src="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png"
-                  class="image"
-              />
-              <div style="padding: 14px" >
+            <el-col
+                v-for="(o, index) in this.ArticleList.length"
+                :key="o"
+                :span="6"
+                class="infinite-list"
+            >
+              <el-card :body-style="{ padding: '0px'}">
+                <img
+                    :src="`${this.$store.state.path}/${JSON.parse(this.ArticleList[index].article.imgListId.toString())[0]}`"
+                    class="reimage"
+                />
 
-                <span>三国演义</span>
-                <div>
-                 <span style="font-size: 8px;color: rgb(161,161,161)">
-                  成语填空！评论区来几个正经的成语
-                  </span>
-                </div>
-                <div class="box">
-                  <div class="demo-type">
-                    <el-avatar
-                        src=".//public/img/QQ图片20230226174858.jpg"
-                        class="imgs"
-                    />
-                    <span id="ID">理塘王</span>
+                <div style="padding: 14px">
+                  <span>{{this.ArticleList[index].article.title}}</span>
+                  <div>
+                   <span style="font-size: 8px;color: rgb(161,161,161)">
+                        {{this.ArticleList[index].article.articleIntroduction}}
+                   </span>
                   </div>
 
-                  <!--          用户名加点赞量-->
-                  <div class="goodBox">
-                    <el-icon><StarFilled /></el-icon>
-                    <span>100+</span>
+                  <div class="box">
+                    <div class="demo-type">
+                      <el-avatar
+                          :src="`${this.$store.state.path}/${this.ArticleList[index].user.userHeadImg}`"
+                          class="imgs"
+                          alt=""
+                      />
+                      <span id="ID">{{this.ArticleList[index].user.userName}}</span>
+                    </div>
+
+                    <!--          用户名加点赞量-->
+                    <div class="goodBox">
+                      <el-icon><StarFilled /></el-icon>
+                      <span>{{this.ArticleList[index].article.likedQuantity}}+</span>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </el-card>
-          </el-col>
+              </el-card>
+            </el-col>
         </el-row>
   </div>
 </template>
@@ -59,7 +61,6 @@ export default {
   mounted() {
     // var container = document.getElementsByClassName("infinite-list-container")[0];
     // console.log(container.scrollTop);
-
     function imgonload() {
       //把伪数组转化为真数组
       let images = document.getElementsByClassName('image');
@@ -107,7 +108,6 @@ export default {
     ArticleList:{
       type:Array,
       require:true,
-      default:"letgo!!!"
     },
   },
   methods:{
@@ -182,5 +182,9 @@ export default {
 }
 .demo-type{
   float: left;
+}
+.reimage{
+  height: 300px;
+  width:300px;
 }
 </style>

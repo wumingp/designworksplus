@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import {GetResources} from "@/api/api";
+import {getAllArticlesBySubcategory} from "@/api/api";
 
 export default {
   name: "tabs",
@@ -29,16 +29,16 @@ export default {
     getTag(e){
       this.List[0] = {name:e.target.innerHTML}
       this.$emit('TagGetArticleList',this.List);
-      // GetResources(e.target.innerHTML).then((res)=>{
-      //   this.$emit('TagGetArticleList',res.data.extend.List);
-      // })
+      getAllArticlesBySubcategory(e.target.innerHTML,this.$store.state.tagType).then((res)=>{
+        this.$emit('TagGetArticleList',res);
+        console.log(res)
+      })
     }
   },
   computed:{
     CategoryList(){
       return this.CategoryMap.get(this.$store.state.tagType);
     }
-
   }
 }
 

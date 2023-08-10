@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        .box{
+            overflow: hidden;
+            display: flex;
+            width: 500px;
+
+            border: 1px red solid;
+        }
+        .box1{
+
+            width: 200px;
+
+            border: 1px black solid;
+        }
+        .box2{
+            flex: 1;
+            border: 1px blue solid;
+        }
+    </style>
+</head>
+<body>
+<div class="box">
+    <div class="box1"><br><br><br><br></div>
+    <div class="box2"><br><br><br></div>
+</div>
+<div class='triangle'></div>
+<script>
+    var triangle = document.querySelector('.triangle');
+    // 补全代码
+    triangle.innerHTML = "*<br>**<br>***";
+    var s = "problem.xml";
+    let index = s.indexOf('.');
+    let result = s.slice(0,index);
+    console.log(result)
+
+    function _comma(number) {
+        // 补全代码
+        let ress = "";
+        if(number < 0){
+            ress = "-";
+            number = number *-1;
+        }
+
+        number = number + "";
+        var s = number.split('').reverse();
+        var result = [];
+        var num = 0;
+        for(let i = 0; i < s.length; i++){
+            if (s[i] === '.'){
+                result.push(s[i]);
+                num=0;
+                continue;
+            }
+            if(num % 3 === 0 && num!==0){
+                result.push(',');
+                num = 0;
+
+            }
+            result.push(s[i]);
+
+            num++;
+        }
+        let res =result.reverse();
+
+        for(let j = 0; j < res.length; j++){
+            ress += res[j];
+        }
+        return ress;
+    }
+    console.log(_comma(-123456.66));
+
+
+</script>
+</body>
+</html>

@@ -22,7 +22,7 @@
   <div class="creat-box">
       <div>分享中心</div>
       <div>快来分享你最喜欢的图书吧</div>
-      <el-button>即刻分享</el-button>
+      <el-button @click="this.toEdit">即刻分享</el-button>
   </div>
 </template>
 
@@ -61,7 +61,9 @@ export default {
     }
   },
   methods:{
-
+    toEdit(){
+      this.$router.replace("/editPage");
+    }
   }
 }
 
